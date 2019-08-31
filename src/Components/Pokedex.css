@@ -1,0 +1,9 @@
+.main {
+   color: #ee5253;
+   display: flex;
+   width: 90vw;
+   flex-wrap: wrap;
+   padding: 10px;
+   justify-content: center;
+   background-image: linear-gradient( 68.1deg,  rgba(248,205,205,1) -0.3%, rgba(149,170,211,1) 100.7% );
+}
