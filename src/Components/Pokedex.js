@@ -1,96 +1,119 @@
 import React from "react";
 import "./Pokedex.css";
 import Entry from "./Entry";
-import Title from './Title'
+import Title from "./Title";
 //import Navbar from "./NavBar";
-import PokemonData from './PokemonData' 
+import PokemonData from "./PokemonData";
 
 class Pokedex extends React.Component {
   constructor() {
     super();
     this.state = {
       pokemonarray: [],
-      gen : 'Gen1'
+      gen: "Gen1",
+      fullArray: PokemonData.array,
+      gen1Array: PokemonData.array.slice(0, 150),
+      gen2Array: PokemonData.array.slice(151, 250),
+      gen3Array: PokemonData.array.slice(251, 385),
+      gen4Array: PokemonData.array.slice(386, 492),
+      gen5Array: PokemonData.array.slice(493, 648),
+      gen6Array: PokemonData.array.slice(649, 720),
+      gen7Array: PokemonData.array.slice(721, 808),
+      testArray : PokemonData.array.slice(0,15),
+      offset: 0,
+      searchString: ""
     };
   }
 
-  myCallBack = dataFromChild => {
-    console.log(dataFromChild);
-    console.log("this is working");
-  };
+  chooseGen() {
+    var gen = Math.floor(Math.random() * 7 + 1);
 
-  chooseGen(){
-    var gen = Math.floor(Math.random()*7 + 1);
-    let start = 0; 
-    let end = 0; 
-
-    switch(gen){
+    switch (gen) {
       case 1:
-        start = 1
-        end = 151
-        this.setState({gen: 'Gen1'})
-        break; 
+        this.setState({ gen: "Gen1" });
+        this.setState({ pokemonarray: this.state.gen1Array });
+        break;
       case 2:
-        start = 152
-        end = 251
-        this.setState({gen: 'Gen2'})
-        break; 
+        this.setState({ gen: "Gen2" });
+        this.setState({ pokemonarray: this.state.gen2Array });
+        this.setState({ offset: 151 });
+        break;
       case 3:
-        start = 252
-        end = 386
-        this.setState({gen: 'Gen3'})
-        break; 
+        this.setState({ gen: "Gen3" });
+        this.setState({ pokemonarray: this.state.gen3Array });
+        this.setState({ offset: 251 });
+        break;
       case 4:
-        start = 387
-        end = 493
-        this.setState({gen: 'Gen4'})
-        break; 
+        this.setState({ gen: "Gen4" });
+        this.setState({ pokemonarray: this.state.gen4Array });
+        this.setState({ offset: 386 });
+        break;
       case 5:
-        start = 494
-        end = 649
-        this.setState({gen: 'Gen5'})
-        break; 
+        this.setState({ gen: "Gen5" });
+        this.setState({ pokemonarray: this.state.gen5Array });
+        this.setState({ offset: 493 });
+        break;
       case 6:
-        start = 650
-        end = 721
-        this.setState({gen: 'Gen6'})
-        break; 
+        this.setState({ gen: "Gen6" });
+        this.setState({ pokemonarray: this.state.gen6Array });
+        this.setState({ offset: 649 });
+        break;
       case 7:
-        start = 722
-        end = 809
-        this.setState({gen: 'Gen7'})
-        break; 
-     default:
-       start =1;
-       end = 151;    
-    }
+        this.setState({ gen: "Gen7" });
+        this.setState({ pokemonarray: this.state.gen7Array });
+        this.setState({ offset: 721 });
+        break;
+      case 8:
+        this.setState({ gen: "Gen7" });
+        this.setState({ pokemonarray: this.state.gen8Array });
+        this.setState({ offset: 721 });
+        break;
+      default:
 
-    return [start,end]
-  }
-
-  setPokemon(){
-    let array = [];
-    let x = this.chooseGen()
-    for(var i = x[0]; i < x[1]; i++){
-      array.push(i);
     }
-    this.setState({ pokemonarray: array });
   }
 
   componentDidMount() {
-    console.log(PokemonData)
-   this.setPokemon();
+    //this.chooseGen();
   }
+
+  handleChange = (e) => {
+    this.setState({searchString: e.target.value})
+  }
+
   render() {
+    let array = this.state.testArray;
+    let searchString = this.state.searchString.trim().toLowerCase()
+    let filteredArray = array.filter(ele => ele.toLowerCase().indexOf(searchString)!== -1)
     return (
       <div>
-        <div onClick={()=>{this.setPokemon()}}> <Title gen={this.state.gen}></Title> </div>
+        <div
+          onClick={() => {
+            this.chooseGen();
+          }}
+          
+        >
+          {" "}
+          <Title gen={this.state.gen}></Title>{" "}
+        </div>
+        <div className="filter">
+          {" "}
+          <input
+            placeholder="Search By Pokemon...."
+            id="searchString"
+            type="text"
+            value={this.state.searchString}
+            onChange = {this.handleChange}
+          ></input>
+        </div>
+
         <div className="main">
-          {this.state.pokemonarray.map(ele => (
+          {filteredArray.map((ele, index) => (
             <Entry
               callbackFromParent={this.myCallBack}
-              key={ele}
-              id={ele}
+              key={index}
+              id={index}
+              name={ele}
               gen={this.state.gen}
             ></Entry>
           ))}

@@ -7,3 +7,18 @@
    justify-content: center;
    background-image: linear-gradient( 68.1deg,  rgba(248,205,205,1) -0.3%, rgba(149,170,211,1) 100.7% );
 }
+
+.filter input{
+   width: 70%;
+   padding: 16px;
+   margin: 20px;
+   border-radius: 10px;
+   
+}
+
+input::placeholder{
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+   font-size: 30px;
+   text-align: center;
+}
+
