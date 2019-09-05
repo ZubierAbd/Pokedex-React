@@ -4,6 +4,7 @@ import Entry from "./Entry";
 import Title from "./Title";
 //import Navbar from "./NavBar";
 import PokemonData from "./PokemonData";
+import pokeball from "./pkball.png";
 
 class Pokedex extends React.Component {
   constructor() {
@@ -19,7 +20,7 @@ class Pokedex extends React.Component {
       gen5Array: PokemonData.array.slice(493, 648),
       gen6Array: PokemonData.array.slice(649, 720),
       gen7Array: PokemonData.array.slice(721, 808),
-      testArray : PokemonData.array.slice(0,15),
+      testArray: PokemonData.array.slice(0, 15),
       offset: 0,
       searchString: ""
     };
@@ -63,37 +64,27 @@ class Pokedex extends React.Component {
         this.setState({ pokemonarray: this.state.gen7Array });
         this.setState({ offset: 721 });
         break;
-      case 8:
-        this.setState({ gen: "Gen7" });
-        this.setState({ pokemonarray: this.state.gen8Array });
-        this.setState({ offset: 721 });
-        break;
       default:
-
     }
   }
 
   componentDidMount() {
-    //this.chooseGen();
+    this.chooseGen();
   }
 
-  handleChange = (e) => {
-    this.setState({searchString: e.target.value})
-  }
+  handleChange = e => {
+    this.setState({ searchString: e.target.value });
+  };
 
   render() {
-    let array = this.state.testArray;
-    let searchString = this.state.searchString.trim().toLowerCase()
-    let filteredArray = array.filter(ele => ele.toLowerCase().indexOf(searchString)!== -1)
+    let array = this.state.pokemonarray;
+    let searchString = this.state.searchString.trim().toLowerCase();
+    let filteredArray = array.filter(
+      ele => ele.toLowerCase().indexOf(searchString) !== -1
+    );
     return (
       <div>
-        <div
-          onClick={() => {
-            this.chooseGen();
-          }}
-          
-        >
-          {" "}
+        <div>
           <Title gen={this.state.gen}></Title>{" "}
         </div>
         <div className="filter">
@@ -103,10 +94,74 @@ class Pokedex extends React.Component {
             id="searchString"
             type="text"
             value={this.state.searchString}
-            onChange = {this.handleChange}
+            onChange={this.handleChange}
           ></input>
         </div>
-
+        <div className="Generations">
+          <button
+            onClick={() =>
+              this.setState({
+                pokemonarray: this.state.gen1Array
+              })
+            }
+          >
+            Gen1{" "}
+          </button>
+          <button
+            onClick={() => {
+              this.setState({
+                pokemonarray: this.state.gen2Array
+              });
+            }}
+          >
+            Gen2
+          </button>
+          <button
+            onClick={() => {
+              this.setState({
+                pokemonarray: this.state.gen3Array
+              });
+            }}
+          >
+            Gen3
+          </button>
+          <button
+            onClick={() => {
+              this.setState({
+                pokemonarray: this.state.gen4Array
+              });
+            }}
+          >
+            Gen4
+          </button>
+          <button
+            onClick={() => {
+              this.setState({
+                pokemonarray: this.state.gen5Array
+              });
+            }}
+          >
+            Gen5
+          </button>
+          <button
+            onClick={() => {
+              this.setState({
+                pokemonarray: this.state.gen6Array
+              });
+            }}
+          >
+            Gen6
+          </button>
+          <button
+            onClick={() => {
+              this.setState({
+                pokemonarray: this.state.gen7Array
+              });
+            }}
+          >
+            Gen7
+          </button>
+        </div>
         <div className="main">
           {filteredArray.map((ele, index) => (
             <Entry

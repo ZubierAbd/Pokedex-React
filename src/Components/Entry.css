@@ -1,4 +1,4 @@
-.container {
+.my-container {
   width: calc(33% - 20px);
   background-color: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(99px);
@@ -124,15 +124,19 @@
   text-transform: uppercase;
   margin-top: -25px;
   color: white;
+  text-shadow: 2px 2px 2px #292929;
+  text-shadow: 2px 2px 2px black;
 }
 
 .type12{
-  padding: 5px;
+  padding: 7px;
+  border-radius: 10px;
+  margin: 0 5px;
 }
 
 .height-weight {
 display: inline-flex;
-font-size: 20px;
+font-size: 24px;
 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
@@ -145,12 +149,20 @@ margin-right: 5px;
 }
 
 .moreStats{
-  border: 1px solid blue;
-  margin: 0 10px;
+  padding: 10px;
+  background:rgba(142, 68, 173, 0.4);
+  margin: 0 20px;
 }
 
 .val {
   display: inline;
+  color: black;
+  opacity: 1;
   padding: 10px;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.val:hover{
+  color: white;
 }

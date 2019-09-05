@@ -70,41 +70,41 @@ class Entry extends React.Component {
 
   getTypecolor(type) {
     var color;
-    if (type == "normal") {
+    if (type === "normal") {
       color = "#A8A878";
-    } else if (type == "fire") {
+    } else if (type === "fire") {
       color = "#f08030";
-    } else if (type == "fighting") {
+    } else if (type === "fighting") {
       color = "#c03028";
-    } else if (type == "water") {
+    } else if (type === "water") {
       color = "#6890f0";
-    } else if (type == "flying") {
+    } else if (type === "flying") {
       color = "#a890f0";
-    } else if (type == "grass") {
+    } else if (type === "grass") {
       color = "#78c850";
-    } else if (type == "poison") {
+    } else if (type === "poison") {
       color = "#a040a0";
-    } else if (type == "electric") {
+    } else if (type === "electric") {
       color = "#f8d030";
-    } else if (type == "ground") {
+    } else if (type === "ground") {
       color = "#e0c068";
-    } else if (type == "psychic") {
+    } else if (type === "psychic") {
       color = "#f85888";
-    } else if (type == "rock") {
+    } else if (type === "rock") {
       color = "#b8a038";
-    } else if (type == "ice") {
+    } else if (type === "ice") {
       color = "#98D8D8";
-    } else if (type == "bug") {
+    } else if (type === "bug") {
       color = "#A8B820";
-    } else if (type == "dragon") {
+    } else if (type === "dragon") {
       color = "#7038F8";
-    } else if (type == "ghost") {
+    } else if (type === "ghost") {
       color = "#705898";
-    } else if (type == "dark") {
+    } else if (type === "dark") {
       color = "#705848";
-    } else if (type == "steel") {
+    } else if (type === "steel") {
       color = "#b8b8d0";
-    } else if (type == "fairy") {
+    } else if (type === "fairy") {
       color = "#ee99ac";
     }
     return color;
@@ -127,7 +127,7 @@ class Entry extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="my-container">
         <img className="portrait" src={this.state.sprite} alt=""></img>
         <div className="card">
           {" "}
@@ -162,6 +162,7 @@ class Entry extends React.Component {
             <p className="val"> ATK: {this.state.stat_atk} </p>
             <p className="val">DEF: {this.state.stat_def} </p>
             <p className="val">HP: {this.state.stat_hp} </p>
+            <br></br>
             <p className="val">SPD: {this.state.stat_spd} </p>
             <p className="val">SP. ATK:{this.state.stat_sp_atk} </p>
             <p className="val">SP. DEF: {this.state.stat_sp_def} </p>

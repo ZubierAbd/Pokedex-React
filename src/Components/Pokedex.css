@@ -22,3 +22,12 @@ input::placeholder{
    text-align: center;
 }
 
+.Generations button{
+   color: white; 
+   background: #ee5253; 
+   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   border: 1px solid black; 
+   text-shadow: 1px 1px black;
+   padding: 10px; 
+   margin: 5px;
+}
