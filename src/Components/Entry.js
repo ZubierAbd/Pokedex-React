@@ -7,7 +7,7 @@ class Entry extends React.Component {
     super(props);
     this.state = {
       id: "",
-      name: this.props.name,
+      name: '',
       sprite: "",
       type1: "",
       type2: "",
@@ -28,11 +28,12 @@ class Entry extends React.Component {
 
   componentDidMount() {
     const API = "https://pokeapi.co/api/v2/";
-    fetch(API + "pokemon/" + this.props.name.toLowerCase() + "/")
+    fetch(API + "pokemon/" + this.props.id + "/")
       .then(res => res.json())
       .then(res =>
         this.setState({
           id: res.id,
+          name: res.name,
           sprite: res.sprites.front_default,
           type1: res.types[0].type.name,
           type2: res.types[1] ? res.types[1].type.name : "",
@@ -48,7 +49,7 @@ class Entry extends React.Component {
       )
       .then(res => this.setTypeColors());
 
-    fetch(API + "pokemon-species/" + this.props.name.toLowerCase() + "/")
+    fetch(API + "pokemon-species/" + this.props.id + "/")
       .then(res => res.json())
       .then(res => {
         var x;
@@ -62,10 +63,6 @@ class Entry extends React.Component {
 
         this.setState({ flavor_text: x });
       });
-  }
-
-  randomFunction() {
-    this.props.callbackFromParent(this.state.name);
   }
 
   getTypecolor(type) {
@@ -126,8 +123,10 @@ class Entry extends React.Component {
   }
 
   render() {
+    let myclasses = this.props.id % 2!=0? 'border-Top' : 'border-Top2';
+    myclasses += ' my-container'
     return (
-      <div className="my-container">
+      <div className={myclasses}>
         <img className="portrait" src={this.state.sprite} alt=""></img>
         <div className="card">
           {" "}
