@@ -123,7 +123,7 @@ class Entry extends React.Component {
   }
 
   render() {
-    let myclasses = this.props.id % 2!=0? 'border-Top' : 'border-Top2';
+    let myclasses = this.props.id % 2!==0? 'border-Top' : 'border-Top2';
     myclasses += ' my-container'
     return (
       <div className={myclasses}>
