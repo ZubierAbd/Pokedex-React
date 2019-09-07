@@ -143,7 +143,7 @@ class Pokedex extends React.Component {
         }>
           <Title gen={this.state.gen}></Title>{" "}
         </div>
-        <div className="Generations">
+        {/* <div className="Generations">
           <button
             onClick={() => {
               this.setState({ gen: "Gen1" });
@@ -203,7 +203,7 @@ class Pokedex extends React.Component {
           >
             Gen7
           </button>
-        </div>
+        </div> */}
         <div className="row main-row">
           {array.slice(0, 21).map((ele, index) => (
             <div
