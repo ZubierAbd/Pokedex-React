@@ -205,7 +205,7 @@ class Pokedex extends React.Component {
           </button>
         </div> */}
         <div className="row main-row">
-          {array.slice(0, 21).map((ele, index) => (
+          {array.map((ele, index) => (
             <div
               className="col-xs-12 col-sm-6 col-md-4 col-lg-4"
               key={index + 100}
