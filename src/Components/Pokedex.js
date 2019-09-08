@@ -9,6 +9,8 @@ import Title from "./Title";
 class Pokedex extends React.Component {
   constructor() {
     super();
+    this.handleClick = this.handleClick.bind(this);
+
     this.state = {
       pokemonarray: [],
       gen: "Gen1",
@@ -18,7 +20,9 @@ class Pokedex extends React.Component {
       gen4Array: "",
       gen5Array: "",
       gen6Array: "",
-      gen7Array: ""
+      gen7Array: "",
+      test: "21",
+      region: "Kanto"
     };
   }
 
@@ -37,13 +41,13 @@ class Pokedex extends React.Component {
     for (i = 152; i < 252; i++) {
       gen2.push(i);
     }
-    for ( i = 252; i < 386; i++) {
+    for (i = 252; i < 386; i++) {
       gen3.push(i);
     }
-    for (i = 387; i < 493; i++) {
+    for (i = 387; i < 494; i++) {
       gen4.push(i);
     }
-    for (i = 494; i < 649; i++) {
+    for (i = 495; i < 649; i++) {
       gen5.push(i);
     }
     for (i = 650; i < 741; i++) {
@@ -72,43 +76,50 @@ class Pokedex extends React.Component {
         start = 1;
         end = 151;
         this.setState({ gen: "Gen1" });
-        this.setState({pokemonarray: this.state.gen1Array})
+        this.setState({ pokemonarray: this.state.gen1Array });
+        this.setState({ region: "Kanto" });
         break;
       case 2:
         start = 152;
         end = 251;
         this.setState({ gen: "Gen2" });
-        this.setState({pokemonarray: this.state.gen1Array})
+        this.setState({ pokemonarray: this.state.gen2Array });
+        this.setState({ region: "Johto" });
         break;
       case 3:
         start = 252;
         end = 386;
         this.setState({ gen: "Gen3" });
-        this.setState({pokemonarray: this.state.gen1Array})
+        this.setState({ pokemonarray: this.state.gen3Array });
+        this.setState({ region: "Hoenn" });
         break;
       case 4:
         start = 387;
-        end = 493;
+        end = 494;
         this.setState({ gen: "Gen4" });
-        this.setState({pokemonarray: this.state.gen1Array})
+        this.setState({ pokemonarray: this.state.gen4Array });
+        this.setState({ region: "Sinnoh" });
         break;
       case 5:
-        start = 494;
+        start = 495;
         end = 649;
         this.setState({ gen: "Gen5" });
-        this.setState({pokemonarray: this.state.gen1Array})
+        this.setState({ pokemonarray: this.state.gen1Array });
+        this.setState({ region: "Unova" });
         break;
       case 6:
         start = 650;
         end = 721;
         this.setState({ gen: "Gen6" });
-        this.setState({pokemonarray: this.state.gen1Array})
+        this.setState({ pokemonarray: this.state.gen1Array });
+        this.setState({ region: "Kalos" });
         break;
       case 7:
         start = 722;
         end = 809;
         this.setState({ gen: "Gen7" });
-        this.setState({pokemonarray: this.state.gen1Array})
+        this.setState({ pokemonarray: this.state.gen1Array });
+        this.setState({ region: "Alola" });
         break;
       default:
         start = 1;
@@ -131,84 +142,73 @@ class Pokedex extends React.Component {
     this.setPokemon();
     this.setAllArrays();
   }
+  
+
+  handleClick(gen) {
+    switch (gen) {
+      case 1:
+        this.setState({ gen: "Gen1" });
+        this.setState({ pokemonarray: this.state.gen1Array });
+        this.setState({ region: "Kanto" });
+        break;
+      case 2:
+        this.setState({ gen: "Gen2" });
+        this.setState({ pokemonarray: this.state.gen2Array });
+        this.setState({ region: "Johto" });
+        break;
+      case 3:
+        this.setState({ gen: "Gen3" });
+        this.setState({ pokemonarray: this.state.gen3Array });
+        this.setState({ region: "Johto" });
+        break;
+      case 4:
+        this.setState({ gen: "Gen4" });
+        this.setState({ pokemonarray: this.state.gen4Array });
+        this.setState({ region: "Johto" });
+        break;
+      case 5:
+        this.setState({ gen: "Gen5" });
+        this.setState({ pokemonarray: this.state.gen5Array });
+        this.setState({ region: "Johto" });
+        break;
+      case 6:
+        this.setState({ gen: "Gen6" });
+        this.setState({ pokemonarray: this.state.gen6Array });
+        this.setState({ region: "Johto" });
+        break;
+      case 7:
+        this.setState({ gen: "Gen7" });
+        this.setState({ pokemonarray: this.state.gen7Array });
+        this.setState({ region: "Johto" });
+        break;
+
+      default:
+    }
+  }
 
   render() {
-    let array = this.state.pokemonarray;
+    console.log(this.state.pokemonarray);
     return (
       <div>
-        <div onClick={
-          ()=>{
-            this.setState({pokemonarray: this.state.gen4Array})
-          }
-        }>
-          <Title gen={this.state.gen}></Title>{" "}
+        <div>
+          <Title gen={this.state.gen} region={this.state.region}></Title>{" "}
         </div>
-        {/* <div className="Generations">
-          <button
-            onClick={() => {
-              this.setState({ gen: "Gen1" });
-              this.setState({ pokemonarray: this.state.gen1Array });
-              array = this.state.gen1Array;
-            }}
-          >
-            Gen1{" "}
-          </button>
-          <button
-            onClick={() => {
-              this.setState({ gen: "Gen2" });
-              this.setState({ pokemonarray: this.state.gen2Array });
-              array = this.state.gen2Array;
-            }}
-          >
-            Gen2
-          </button>
-          <button
-            onClick={() => {
-              this.setState({ gen: "Gen3" });
-              this.setState({ pokemonarray: this.state.gen3Array });
-              array = this.state.gen3Array;
-            }}
-          >
-            Gen3
-          </button>
-          <button
-            onClick={() => {
-              this.setState({ gen: "Gen4" });
-              this.setState({ pokemonarray: this.state.gen4Array });
-            }}
-          >
-            Gen4
-          </button>
-          <button
-            onClick={() => {
-              this.setState({ gen: "Gen5" });
-              this.setState({ pokemonarray: this.state.gen5Array });
-            }}
-          >
-            Gen5
-          </button>
-          <button
-            onClick={() => {
-              this.setState({ gen: "Gen6" });
-              this.setState({ pokemonarray: this.state.gen6Array });
-            }}
-          >
-            Gen6
-          </button>
-          <button
-            onClick={() => {
-              this.setState({ gen: "Gen7" });
-              this.setState({ pokemonarray: this.state.gen7Array });
-            }}
-          >
-            Gen7
-          </button>
-        </div> */}
+        {
+          <div className="Generations">
+            <button onClick={this.handleClick.bind(this,1)}>Gen1 </button>
+            <button onClick={this.handleClick.bind(this,2)}>Gen2</button>
+            <button onClick={this.handleClick.bind(this,3)}>Gen3</button>
+            <button onClick={this.handleClick.bind(this,4)}>Gen4</button>
+            <button onClick={this.handleClick.bind(this,5)}>Gen5</button>
+            <button onClick={this.handleClick.bind(this,6)}>Gen6</button>
+            <button onClick={this.handleClick.bind(this,7)}>Gen7</button>
+          </div>
+        }
         <div className="row main-row">
-          {array.map((ele, index) => (
+          {this.state.pokemonarray.slice(0, 12).map((ele, index) => (
             <div
               className="col-xs-12 col-sm-6 col-md-4 col-lg-4"
-              key={index + 100}
+              key={ele}
             >
               <Entry id={ele} gen={this.state.gen}>
                 {" "}

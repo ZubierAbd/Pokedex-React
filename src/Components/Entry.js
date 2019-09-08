@@ -6,7 +6,7 @@ class Entry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "",
+      id: this.props.id? this.props.id: '1',
       name: '',
       sprite: "",
       type1: "",
@@ -32,7 +32,6 @@ class Entry extends React.Component {
       .then(res => res.json())
       .then(res =>
         this.setState({
-          id: res.id,
           name: res.name,
           sprite: res.sprites.front_default,
           type1: res.types[0].type.name,
@@ -120,6 +119,10 @@ class Entry extends React.Component {
       color = this.getTypecolor(type);
       this.setState({ type2Color: { background: color } });
     }
+  }
+
+  handleClick(e,gen){
+
   }
 
   render() {
