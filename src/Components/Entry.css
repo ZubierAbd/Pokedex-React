@@ -176,7 +176,7 @@
 .types {
   display: inline-flex;
   justify-content: center;
-  font-size: 2em;
+  font-size:1.2em ;
   text-transform: uppercase;
   background: hsl(0, 95%, 94%);
   color: white;
@@ -186,7 +186,7 @@
 
 .type12 {
   padding: 2%;
-  max-width: 40%;
+  max-width: 50%;
   border-radius: 10px;
   margin: 0 5px;
 }

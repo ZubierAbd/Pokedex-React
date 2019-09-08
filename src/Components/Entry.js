@@ -134,20 +134,20 @@ class Entry extends React.Component {
         <p className="id"> #{this.props.id}</p>
         <div className="card">
           {" "}
-          <h2 className="Name" id={this.props.gen}>
+          <p className="Name" id={this.props.gen}>
             {" "}
             {this.state.name}
-          </h2>
+          </p>
          
           <span className="types">
-            <h3 className="type12" style={this.state.type1Color}>
+            <p className="type12" style={this.state.type1Color}>
               {this.state.type1}
-            </h3>{" "}
+            </p>{" "}
             {this.state.type2 ? (
-              <h3 className="type12" style={this.state.type2Color}>
+              <p className="type12" style={this.state.type2Color}>
                 {" "}
                 {this.state.type2}
-              </h3>
+              </p>
             ) : (
               ""
             )}
