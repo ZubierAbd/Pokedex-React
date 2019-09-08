@@ -128,12 +128,14 @@ class Entry extends React.Component {
     return (
       <div className={myclasses}>
         <img className="portrait" src={this.state.sprite} alt=""></img>
+        <p className="id"> #{this.props.id}</p>
         <div className="card">
           {" "}
           <h2 className="Name" id={this.props.gen}>
             {" "}
             {this.state.name}
           </h2>
+         
           <span className="types">
             <h3 className="type12" style={this.state.type1Color}>
               {this.state.type1}

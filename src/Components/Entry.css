@@ -4,13 +4,16 @@
   margin: 10px;
   margin-top: 7vh;
   min-height: 95%;
+  transition-duration: 0.75s;
+    filter: brightness(95%)
   /* line-height: 24px; */
 }
 
 .my-container:hover{
   box-shadow: 9px 9px 20px hsl(0, 15%, 65%);
   transform: scale(1.05);
-  transition-duration: 1s;
+  transition-duration: 0.5s;
+  filter:  saturate(115%)
 }
 
 .card { 
@@ -29,11 +32,14 @@
 .portrait {
   width: 50%;
   height: auto;
+  transition-duration: 1s;
+  
 }
 
 .portrait:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   transition-duration: 2s;
+
 }
 
 @keyframes shake {
@@ -126,9 +132,14 @@
   text-shadow: 2px 2px 2px black;
 }
 
-/* #Gen1 {
+#Gen1 {
   color: #ee5253;
-} */
+}
+
+#Gen1 .Name {
+  background: hsl(240, 95%, 92%) !important;
+  color: green;
+}
 #Gen2 {
   color: #0abde3;
 }
@@ -186,6 +197,14 @@
   font-size: 1em;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
+}
+
+.id{
+  font-size: 1rem;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+  "Lucida Sans", Arial, sans-serif;
+  letter-spacing: 0.2px;
+  margin-bottom: -1px;
 }
 
 #weight {
