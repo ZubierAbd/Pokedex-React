@@ -4,6 +4,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #eef0f5;
-  padding: 0 1%;
+  /* Deep-ocean storm gradient with subtle bioluminescent particles */
+  background:
+    radial-gradient(ellipse at 25% 0%,   rgba(13, 31, 60, 0.9) 0%,  transparent 55%),
+    radial-gradient(ellipse at 80% 20%,  rgba(6, 182, 212, 0.04) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 100%, rgba(6, 15, 36, 1) 0%,      transparent 60%),
+    linear-gradient(180deg, #07101f 0%, #060c1a 50%, #040916 100%);
+  padding: 0 1% 60px;
+  color: #ccd6f6;
 }
