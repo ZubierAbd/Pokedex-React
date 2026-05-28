@@ -104,21 +104,21 @@ class Pokedex extends React.Component {
         start = 495;
         end = 649;
         this.setState({ gen: "Gen5" });
-        this.setState({ pokemonarray: this.state.gen1Array });
+        this.setState({ pokemonarray: this.state.gen5Array });
         this.setState({ region: "Unova" });
         break;
       case 6:
         start = 650;
         end = 721;
         this.setState({ gen: "Gen6" });
-        this.setState({ pokemonarray: this.state.gen1Array });
+        this.setState({ pokemonarray: this.state.gen6Array });
         this.setState({ region: "Kalos" });
         break;
       case 7:
         start = 722;
         end = 809;
         this.setState({ gen: "Gen7" });
-        this.setState({ pokemonarray: this.state.gen1Array });
+        this.setState({ pokemonarray: this.state.gen7Array });
         this.setState({ region: "Alola" });
         break;
       default:
@@ -159,27 +159,27 @@ class Pokedex extends React.Component {
       case 3:
         this.setState({ gen: "Gen3" });
         this.setState({ pokemonarray: this.state.gen3Array });
-        this.setState({ region: "Johto" });
+        this.setState({ region: "Hoenn" });
         break;
       case 4:
         this.setState({ gen: "Gen4" });
         this.setState({ pokemonarray: this.state.gen4Array });
-        this.setState({ region: "Johto" });
+        this.setState({ region: "Sinnoh" });
         break;
       case 5:
         this.setState({ gen: "Gen5" });
         this.setState({ pokemonarray: this.state.gen5Array });
-        this.setState({ region: "Johto" });
+        this.setState({ region: "Unova" });
         break;
       case 6:
         this.setState({ gen: "Gen6" });
         this.setState({ pokemonarray: this.state.gen6Array });
-        this.setState({ region: "Johto" });
+        this.setState({ region: "Kalos" });
         break;
       case 7:
         this.setState({ gen: "Gen7" });
         this.setState({ pokemonarray: this.state.gen7Array });
-        this.setState({ region: "Johto" });
+        this.setState({ region: "Alola" });
         break;
 
       default:
@@ -187,7 +187,6 @@ class Pokedex extends React.Component {
   }
 
   render() {
-    console.log(this.state.pokemonarray);
     return (
       <div>
         <div>
@@ -210,10 +209,7 @@ class Pokedex extends React.Component {
               className="col-xs-12 col-sm-6 col-md-4 col-lg-4"
               key={ele}
             >
-              <Entry id={ele} gen={this.state.gen}>
-                {" "}
-                key={ele}
-              </Entry>
+              <Entry id={ele} gen={this.state.gen} />
             </div>
           ))}
         </div>
