@@ -2,235 +2,147 @@ import React from "react";
 import "./Pokedex.css";
 import Entry from "./Entry";
 import Title from "./Title";
-//import Navbar from "./NavBar";
-// import PokemonData from "./PokemonData";
-// import pokeball from "./pkball.png";
+
+const BATCH = 20; // cards to reveal per scroll step
+
+const GEN_DATA = {
+  1: { gen: "Gen1", region: "Kanto",  start: 1,   end: 152  },
+  2: { gen: "Gen2", region: "Johto",  start: 152,  end: 252  },
+  3: { gen: "Gen3", region: "Hoenn",  start: 252,  end: 387  },
+  4: { gen: "Gen4", region: "Sinnoh", start: 387,  end: 495  },
+  5: { gen: "Gen5", region: "Unova",  start: 495,  end: 650  },
+  6: { gen: "Gen6", region: "Kalos",  start: 650,  end: 722  },
+  7: { gen: "Gen7", region: "Alola",  start: 722,  end: 810  },
+  8: { gen: "Gen8", region: "Galar",  start: 810,  end: 906  },
+  9: { gen: "Gen9", region: "Paldea", start: 906,  end: 1026 },
+};
+
+function buildArray(start, end) {
+  const arr = [];
+  for (let i = start; i < end; i++) arr.push(i);
+  return arr;
+}
 
 class Pokedex extends React.Component {
   constructor() {
     super();
     this.handleClick = this.handleClick.bind(this);
+    this.sentinelRef = React.createRef();
+    this.scrollObserver = null;
 
     this.state = {
       pokemonarray: [],
       gen: "Gen1",
-      gen1Array: "",
-      gen2Array: "",
-      gen3Array: "",
-      gen4Array: "",
-      gen5Array: "",
-      gen6Array: "",
-      gen7Array: "",
-      gen8Array: "",
-      gen9Array: "",
-      region: "Kanto"
+      region: "Kanto",
+      visibleCount: BATCH,
     };
   }
 
-  setAllArrays() {
-    let gen1 = [];
-    let gen2 = [];
-    let gen3 = [];
-    let gen4 = [];
-    let gen5 = [];
-    let gen6 = [];
-    let gen7 = [];
-    let gen8 = [];
-    let gen9 = [];
-    let i = 1;
-    for (i = 1; i < 152; i++) { gen1.push(i); }
-    for (i = 152; i < 252; i++) { gen2.push(i); }
-    for (i = 252; i < 387; i++) { gen3.push(i); }
-    for (i = 387; i < 495; i++) { gen4.push(i); }
-    for (i = 495; i < 650; i++) { gen5.push(i); }
-    for (i = 650; i < 722; i++) { gen6.push(i); }
-    for (i = 722; i < 810; i++) { gen7.push(i); }
-    for (i = 810; i < 906; i++) { gen8.push(i); }
-    for (i = 906; i < 1026; i++) { gen9.push(i); }
-
-    this.setState({ gen1Array: gen1 });
-    this.setState({ gen2Array: gen2 });
-    this.setState({ gen3Array: gen3 });
-    this.setState({ gen4Array: gen4 });
-    this.setState({ gen5Array: gen5 });
-    this.setState({ gen6Array: gen6 });
-    this.setState({ gen7Array: gen7 });
-    this.setState({ gen8Array: gen8 });
-    this.setState({ gen9Array: gen9 });
-  }
-
-  chooseGen() {
-    var gen = Math.floor(Math.random() * 9 + 1);
-    let start = 0;
-    let end = 0;
-
-    switch (gen) {
-      case 1:
-        start = 1;
-        end = 151;
-        this.setState({ gen: "Gen1" });
-        this.setState({ pokemonarray: this.state.gen1Array });
-        this.setState({ region: "Kanto" });
-        break;
-      case 2:
-        start = 152;
-        end = 251;
-        this.setState({ gen: "Gen2" });
-        this.setState({ pokemonarray: this.state.gen2Array });
-        this.setState({ region: "Johto" });
-        break;
-      case 3:
-        start = 252;
-        end = 386;
-        this.setState({ gen: "Gen3" });
-        this.setState({ pokemonarray: this.state.gen3Array });
-        this.setState({ region: "Hoenn" });
-        break;
-      case 4:
-        start = 387;
-        end = 494;
-        this.setState({ gen: "Gen4" });
-        this.setState({ pokemonarray: this.state.gen4Array });
-        this.setState({ region: "Sinnoh" });
-        break;
-      case 5:
-        start = 495;
-        end = 649;
-        this.setState({ gen: "Gen5" });
-        this.setState({ pokemonarray: this.state.gen5Array });
-        this.setState({ region: "Unova" });
-        break;
-      case 6:
-        start = 650;
-        end = 721;
-        this.setState({ gen: "Gen6" });
-        this.setState({ pokemonarray: this.state.gen6Array });
-        this.setState({ region: "Kalos" });
-        break;
-      case 7:
-        start = 722;
-        end = 810;
-        this.setState({ gen: "Gen7" });
-        this.setState({ pokemonarray: this.state.gen7Array });
-        this.setState({ region: "Alola" });
-        break;
-      case 8:
-        start = 810;
-        end = 906;
-        this.setState({ gen: "Gen8" });
-        this.setState({ pokemonarray: this.state.gen8Array });
-        this.setState({ region: "Galar" });
-        break;
-      case 9:
-        start = 906;
-        end = 1026;
-        this.setState({ gen: "Gen9" });
-        this.setState({ pokemonarray: this.state.gen9Array });
-        this.setState({ region: "Paldea" });
-        break;
-      default:
-        start = 1;
-        end = 152;
-    }
-
-    return [start, end];
-  }
-
-  setPokemon() {
-    let array = [];
-    let x = this.chooseGen();
-    for (var i = x[0]; i < x[1]; i++) {
-      array.push(i);
-    }
-    this.setState({ pokemonarray: array });
-  }
+  // ── Lifecycle ──────────────────────────────────────────────
 
   componentDidMount() {
-    this.setPokemon();
-    this.setAllArrays();
+    const pick = Math.floor(Math.random() * 9) + 1;
+    const { gen, region, start, end } = GEN_DATA[pick];
+    this.setState({
+      pokemonarray: buildArray(start, end),
+      gen, region,
+      visibleCount: BATCH,
+    }, this.setupScrollObserver);
   }
-  
 
-  handleClick(gen) {
-    switch (gen) {
-      case 1:
-        this.setState({ gen: "Gen1" });
-        this.setState({ pokemonarray: this.state.gen1Array });
-        this.setState({ region: "Kanto" });
-        break;
-      case 2:
-        this.setState({ gen: "Gen2" });
-        this.setState({ pokemonarray: this.state.gen2Array });
-        this.setState({ region: "Johto" });
-        break;
-      case 3:
-        this.setState({ gen: "Gen3" });
-        this.setState({ pokemonarray: this.state.gen3Array });
-        this.setState({ region: "Hoenn" });
-        break;
-      case 4:
-        this.setState({ gen: "Gen4" });
-        this.setState({ pokemonarray: this.state.gen4Array });
-        this.setState({ region: "Sinnoh" });
-        break;
-      case 5:
-        this.setState({ gen: "Gen5" });
-        this.setState({ pokemonarray: this.state.gen5Array });
-        this.setState({ region: "Unova" });
-        break;
-      case 6:
-        this.setState({ gen: "Gen6" });
-        this.setState({ pokemonarray: this.state.gen6Array });
-        this.setState({ region: "Kalos" });
-        break;
-      case 7:
-        this.setState({ gen: "Gen7" });
-        this.setState({ pokemonarray: this.state.gen7Array });
-        this.setState({ region: "Alola" });
-        break;
-      case 8:
-        this.setState({ gen: "Gen8" });
-        this.setState({ pokemonarray: this.state.gen8Array });
-        this.setState({ region: "Galar" });
-        break;
-      case 9:
-        this.setState({ gen: "Gen9" });
-        this.setState({ pokemonarray: this.state.gen9Array });
-        this.setState({ region: "Paldea" });
-        break;
-
-      default:
+  componentDidUpdate(_, prevState) {
+    // Re-attach observer whenever the pokemon list or visible window changes
+    if (prevState.pokemonarray !== this.state.pokemonarray) {
+      this.setupScrollObserver();
     }
   }
 
+  componentWillUnmount() {
+    this.teardownScrollObserver();
+  }
+
+  // ── Infinite scroll ────────────────────────────────────────
+
+  setupScrollObserver() {
+    this.teardownScrollObserver();
+
+    this.scrollObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        this.setState(prev => {
+          if (prev.visibleCount >= prev.pokemonarray.length) return null;
+          return { visibleCount: Math.min(prev.visibleCount + BATCH, prev.pokemonarray.length) };
+        });
+      },
+      { rootMargin: "400px" } // preload next batch before user hits the bottom
+    );
+
+    if (this.sentinelRef.current) {
+      this.scrollObserver.observe(this.sentinelRef.current);
+    }
+  }
+
+  teardownScrollObserver() {
+    if (this.scrollObserver) {
+      this.scrollObserver.disconnect();
+      this.scrollObserver = null;
+    }
+  }
+
+  // ── Gen switching ──────────────────────────────────────────
+
+  handleClick(genNum) {
+    const { gen, region, start, end } = GEN_DATA[genNum];
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    this.setState({
+      pokemonarray: buildArray(start, end),
+      gen, region,
+      visibleCount: BATCH,
+    });
+  }
+
+  // ── Render ─────────────────────────────────────────────────
+
   render() {
+    const { pokemonarray, visibleCount, gen, region } = this.state;
+    const visible = pokemonarray.slice(0, visibleCount);
+    const remaining = pokemonarray.length - visibleCount;
+    const hasMore = remaining > 0;
+
     return (
       <div>
-        <div>
-          <Title gen={this.state.gen} region={this.state.region}></Title>{" "}
-        </div>
-        {
-          <div className="Generations">
-            <button className="btn-gen1" onClick={this.handleClick.bind(this,1)}>Gen 1</button>
-            <button className="btn-gen2" onClick={this.handleClick.bind(this,2)}>Gen 2</button>
-            <button className="btn-gen3" onClick={this.handleClick.bind(this,3)}>Gen 3</button>
-            <button className="btn-gen4" onClick={this.handleClick.bind(this,4)}>Gen 4</button>
-            <button className="btn-gen5" onClick={this.handleClick.bind(this,5)}>Gen 5</button>
-            <button className="btn-gen6" onClick={this.handleClick.bind(this,6)}>Gen 6</button>
-            <button className="btn-gen7" onClick={this.handleClick.bind(this,7)}>Gen 7</button>
-            <button className="btn-gen8" onClick={this.handleClick.bind(this,8)}>Gen 8</button>
-            <button className="btn-gen9" onClick={this.handleClick.bind(this,9)}>Gen 9</button>
-          </div>
-        }
-        <div className="row main-row">
-          {this.state.pokemonarray.map((ele, index) => (
-            <div
-              className="col-xs-12 col-sm-6 col-md-4 col-lg-4"
-              key={ele}
+        <Title gen={gen} region={region} />
+
+        <div className="Generations">
+          {[1,2,3,4,5,6,7,8,9].map(n => (
+            <button
+              key={n}
+              className={`btn-gen${n}`}
+              onClick={this.handleClick.bind(this, n)}
             >
-              <Entry id={ele} gen={this.state.gen} />
+              Gen {n}
+            </button>
+          ))}
+        </div>
+
+        <div className="row main-row">
+          {visible.map(id => (
+            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-4" key={id}>
+              <Entry id={id} gen={gen} />
             </div>
           ))}
+        </div>
+
+        {/* Sentinel — observed to trigger the next batch */}
+        <div ref={this.sentinelRef} className="scroll-sentinel">
+          {hasMore
+            ? <p className="load-indicator">↓ {remaining} more to load</p>
+            : pokemonarray.length > 0 && (
+                <p className="load-indicator load-complete">
+                  All {pokemonarray.length} Pokémon loaded
+                </p>
+              )
+          }
         </div>
       </div>
     );

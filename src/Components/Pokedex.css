@@ -53,3 +53,31 @@
   margin: 0 1%;
   justify-content: center;
 }
+
+/* ── Infinite-scroll sentinel ── */
+.scroll-sentinel {
+  padding: 32px 0 48px;
+  text-align: center;
+}
+
+.load-indicator {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #22d3ee;
+  opacity: 0.35;
+  margin: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.load-complete {
+  color: #334466;
+  animation: none;
+  opacity: 0.5;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; }
+  50%       { opacity: 0.5; }
+}
