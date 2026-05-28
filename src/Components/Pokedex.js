@@ -21,7 +21,8 @@ class Pokedex extends React.Component {
       gen5Array: "",
       gen6Array: "",
       gen7Array: "",
-      test: "21",
+      gen8Array: "",
+      gen9Array: "",
       region: "Kanto"
     };
   }
@@ -34,28 +35,18 @@ class Pokedex extends React.Component {
     let gen5 = [];
     let gen6 = [];
     let gen7 = [];
+    let gen8 = [];
+    let gen9 = [];
     let i = 1;
-    for (i = 1; i < 152; i++) {
-      gen1.push(i);
-    }
-    for (i = 152; i < 252; i++) {
-      gen2.push(i);
-    }
-    for (i = 252; i < 386; i++) {
-      gen3.push(i);
-    }
-    for (i = 387; i < 494; i++) {
-      gen4.push(i);
-    }
-    for (i = 495; i < 649; i++) {
-      gen5.push(i);
-    }
-    for (i = 650; i < 741; i++) {
-      gen6.push(i);
-    }
-    for (i = 722; i < 809; i++) {
-      gen7.push(i);
-    }
+    for (i = 1; i < 152; i++) { gen1.push(i); }
+    for (i = 152; i < 252; i++) { gen2.push(i); }
+    for (i = 252; i < 387; i++) { gen3.push(i); }
+    for (i = 387; i < 495; i++) { gen4.push(i); }
+    for (i = 495; i < 650; i++) { gen5.push(i); }
+    for (i = 650; i < 722; i++) { gen6.push(i); }
+    for (i = 722; i < 810; i++) { gen7.push(i); }
+    for (i = 810; i < 906; i++) { gen8.push(i); }
+    for (i = 906; i < 1026; i++) { gen9.push(i); }
 
     this.setState({ gen1Array: gen1 });
     this.setState({ gen2Array: gen2 });
@@ -64,10 +55,12 @@ class Pokedex extends React.Component {
     this.setState({ gen5Array: gen5 });
     this.setState({ gen6Array: gen6 });
     this.setState({ gen7Array: gen7 });
+    this.setState({ gen8Array: gen8 });
+    this.setState({ gen9Array: gen9 });
   }
 
   chooseGen() {
-    var gen = Math.floor(Math.random() * 7 + 1);
+    var gen = Math.floor(Math.random() * 9 + 1);
     let start = 0;
     let end = 0;
 
@@ -116,14 +109,28 @@ class Pokedex extends React.Component {
         break;
       case 7:
         start = 722;
-        end = 809;
+        end = 810;
         this.setState({ gen: "Gen7" });
         this.setState({ pokemonarray: this.state.gen7Array });
         this.setState({ region: "Alola" });
         break;
+      case 8:
+        start = 810;
+        end = 906;
+        this.setState({ gen: "Gen8" });
+        this.setState({ pokemonarray: this.state.gen8Array });
+        this.setState({ region: "Galar" });
+        break;
+      case 9:
+        start = 906;
+        end = 1026;
+        this.setState({ gen: "Gen9" });
+        this.setState({ pokemonarray: this.state.gen9Array });
+        this.setState({ region: "Paldea" });
+        break;
       default:
         start = 1;
-        end = 151;
+        end = 152;
     }
 
     return [start, end];
@@ -181,6 +188,16 @@ class Pokedex extends React.Component {
         this.setState({ pokemonarray: this.state.gen7Array });
         this.setState({ region: "Alola" });
         break;
+      case 8:
+        this.setState({ gen: "Gen8" });
+        this.setState({ pokemonarray: this.state.gen8Array });
+        this.setState({ region: "Galar" });
+        break;
+      case 9:
+        this.setState({ gen: "Gen9" });
+        this.setState({ pokemonarray: this.state.gen9Array });
+        this.setState({ region: "Paldea" });
+        break;
 
       default:
     }
@@ -194,13 +211,15 @@ class Pokedex extends React.Component {
         </div>
         {
           <div className="Generations">
-            <button onClick={this.handleClick.bind(this,1)}>Gen1 </button>
-            <button onClick={this.handleClick.bind(this,2)}>Gen2</button>
-            <button onClick={this.handleClick.bind(this,3)}>Gen3</button>
-            <button onClick={this.handleClick.bind(this,4)}>Gen4</button>
-            <button onClick={this.handleClick.bind(this,5)}>Gen5</button>
-            <button onClick={this.handleClick.bind(this,6)}>Gen6</button>
-            <button onClick={this.handleClick.bind(this,7)}>Gen7</button>
+            <button className="btn-gen1" onClick={this.handleClick.bind(this,1)}>Gen 1</button>
+            <button className="btn-gen2" onClick={this.handleClick.bind(this,2)}>Gen 2</button>
+            <button className="btn-gen3" onClick={this.handleClick.bind(this,3)}>Gen 3</button>
+            <button className="btn-gen4" onClick={this.handleClick.bind(this,4)}>Gen 4</button>
+            <button className="btn-gen5" onClick={this.handleClick.bind(this,5)}>Gen 5</button>
+            <button className="btn-gen6" onClick={this.handleClick.bind(this,6)}>Gen 6</button>
+            <button className="btn-gen7" onClick={this.handleClick.bind(this,7)}>Gen 7</button>
+            <button className="btn-gen8" onClick={this.handleClick.bind(this,8)}>Gen 8</button>
+            <button className="btn-gen9" onClick={this.handleClick.bind(this,9)}>Gen 9</button>
           </div>
         }
         <div className="row main-row">

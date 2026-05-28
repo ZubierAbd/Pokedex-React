@@ -38,12 +38,12 @@ class Entry extends React.Component {
           type2: res.types[1] ? res.types[1].type.name : "",
           weight: res.weight,
           height: res.height,
-          stat_spd: res.stats[0].base_stat,
-          stat_sp_def : res.stats[1].base_stat,
-          stat_sp_atk : res.stats[2].base_stat,
-          stat_atk : res.stats[3].base_stat,
-          stat_def : res.stats[4].base_stat,
-          stat_hp : res.stats[5].base_stat
+          stat_hp: res.stats[0].base_stat,
+          stat_atk: res.stats[1].base_stat,
+          stat_def: res.stats[2].base_stat,
+          stat_sp_atk: res.stats[3].base_stat,
+          stat_sp_def: res.stats[4].base_stat,
+          stat_spd: res.stats[5].base_stat
         })
       )
       .then(res => this.setTypeColors());
