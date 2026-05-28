@@ -3,7 +3,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* No align-items: center — that shrinks children to content-width,
+     breaking Bootstrap's percentage-based column widths */
   /* Deep-ocean storm gradient with subtle bioluminescent particles */
   background:
     radial-gradient(ellipse at 25% 0%,   rgba(13, 31, 60, 0.9) 0%,  transparent 55%),
